@@ -11,18 +11,33 @@ module.exports.init = router => {
 }
 function* create(){
   const draftId = this.request.body.draftId;
+  console.log('发布文章处理过程',draftId)
   const draft = yield Draft.findOne({_id:draftId})
     .exec().catch(err => {
       utils.logger.error(err);
       this.throw(500,'内部错误')
     })
   if(0 === draft.title.length){
-    this.throw(400,'文章标题不能为空')
+    console.log('err','文章标题不能为空')
+    this.status = 400;
+    this.body = {
+      success:false,
+      msg:'文章标题不能为空'
+    }
+    //this.throw(400,'文章标题不能为空')
   }else if(0 === draft.excerpt.length){
+    console.log('err','文章摘要不能为空')
+    this.status = 400;
+    this.body = {
+      success:false,
+      msg:'文章摘要不能为空,请在文章中插入<!-- more -->以分隔摘要和正文'
+    }
+    return false;
     this.throw(400,`文章摘要不能为空,请在文章中插入'<!-- more -->'以分隔摘要和正文`);
   }else if(0 === draft.content.length){
     this.throw(400,'文章内容不能为空')
   }
+  console.log("test",draft.article)
   if(null !== draft.article){
     draft.draftPublished = true;
     draft.lastEditTime = new Date();
@@ -47,6 +62,7 @@ function* create(){
           }
         })
     }
+    console.log("test001")
     article = article.toObject();
     this.status = 200;
     this.body = {
@@ -55,6 +71,7 @@ function* create(){
         article
       }
     }
+    console.log("test002")
   }else{
     draft.draftPublished = true;
     draft.lastEditTime = new Date();

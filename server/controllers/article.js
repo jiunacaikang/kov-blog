@@ -121,11 +121,11 @@ function* articleList(next){
          article.lastEditTime = new Date(article.lastEditTime).format('yyyy-MM-dd hh:mm');
          }*/
         resultArr.push(article);
-        utils.print(article);
+        //utils.print(article);
       })
     }
 
-    utils.print(resultArr);
+    //utils.print(resultArr);
     this.body = {
       success:true,
       data:{

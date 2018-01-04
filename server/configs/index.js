@@ -21,9 +21,8 @@ let config = {
   mongoConfig: { // 数据库配置
     url: 'mongodb://localhost:27017/kov-blog',
     opts:{
-      user:'',
-      pass:''
-    }
+      useMongoClient: true,
+    },
   },
   'jwt': {
     'cert': 'kov-blog'

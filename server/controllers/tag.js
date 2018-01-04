@@ -23,6 +23,7 @@ function* tokenList(next){
     utils.logger.error(err);
     this.throw(500,'内部错误')
   });
+
   this.status = 200;
   this.body = {
     success:true,

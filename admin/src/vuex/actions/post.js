@@ -29,6 +29,7 @@ export const savePostTitle = ({ dispatch }) => {
   dispatch(types.POST_TITLE_SAVE);
 }
 export const deletePost = ({ dispatch,state }) => {
+  console.log("删除草稿",state.post.currentPostId)
   if(state.post.postSaved){
     return service.deleteDraft(state.post.currentPostId).then(res => {
       if(res.success){
@@ -42,6 +43,7 @@ export const deletePost = ({ dispatch,state }) => {
   }
 };
 export const publishPost = ({ dispatch, state }) => {
+  console.log("发布文章",state.post.currentPostId)
   return service.publish(state.post.currentPostId).then(res => {
     if(res.success){
       dispatch(types.POST_PUBLISH,res.data.article.id);

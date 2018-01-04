@@ -6,11 +6,11 @@
     <div class="clearfix">
       <div class="half-container">
         <i class="icon-biaoqian iconfont" style="margin-right:5px"></i>
-        <span class="tag" v-for="tag in tags">{{tag['name']}} <i class="icon-chacha iconfont delete-tag" @click="deleteTag(tag.id)"></i></span>
+        <span class="tag" v-for="(i,tag) in tags" :key="i">{{tag['name']}} <i class="icon-chacha iconfont delete-tag" @click="deleteTag(tag.id)"></i></span>
         <div class="tag active">
           <span v-show="!tagInput" @click="addTag()" >+</span> <input type="text" class="tag-input" v-show="tagInput" v-model="tagNew" placeholder="使用回车键提交" @keyup.13="submitTag">
           <ul class="search-list reset-list" v-if="tagInput" v-show="tagsToAdd.length">
-            <li class="search-item" @click="submitTag(tag['name'])" v-for="tag in tagsToAdd">{{tag['name']}}</li>
+            <li class="search-item" @click="submitTag(tag['name'])" v-for="(i,tag) in tagsToAdd" :key="i">{{tag['name']}}</li>
           </ul>
         </div>
       </div>
@@ -270,8 +270,8 @@
       this.submitPostTitle(title).then(()=>{
         this.savePostTitle();
       }).catch(err => {
-        console.log(err);
         alert('网络错误,标题保存失败');
+        console.log(err);
       })
   },500);
   let smde;

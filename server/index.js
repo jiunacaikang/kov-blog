@@ -63,6 +63,7 @@ co(function*() {
   app.use(bodyParser());
   yield controllers.init(router);
   app.use(router.routes());
+  
   app.listen(config.app.port, ()=>{
     utils.print('app is listening on port '+config.app.port);
   })
